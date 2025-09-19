@@ -1,13 +1,8 @@
 import os
-import time
-import asyncio
-import schedule
 import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from telegram.ext import ApplicationBuilder
-
-
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 
@@ -37,29 +32,19 @@ async def send_daily_message(app):
 
     await app.bot.send_message(chat_id=CHANNEL_ID, text=output)
 
-def job(app):
-    # Create an asyncio task for sending the message without blocking
-    asyncio.create_task(send_daily_message(app))
-
-async def main():
+async def run_app():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     # Start the application (polling won't be strictly necessary if only scheduling)
     await app.initialize()
     await app.start()
     
-    # Schedule job daily at 09:00
-    schedule.timezone = 'Asia/Almaty'  # Set your timezone if needed
-    schedule.every().day.at("00:02").do(job, app)
-
-    while True:
-        schedule.run_pending()
-        await asyncio.sleep(1)  # Use asyncio sleep in async function
+    send_daily_message(app)  # Initial call to send message immediately
 
     await app.stop()
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    run_app()
 
 
 
