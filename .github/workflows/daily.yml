@@ -3,30 +3,49 @@ name: Python Script Workflow
 on:
   push:
     branches:
-      - master       # Run on every push to main branch
+      - master
   schedule:
-    - cron: '2 19 * * *'  # Optional: Schedule to run daily
+    - cron: '2 19 * * *'
 
 jobs:
   run-python:
     runs-on: ubuntu-latest
     env:
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      CHANNEL_ID: "@bugin_ne_kun"  # Directly set the channel ID here
+      CHANNEL_ID: "@bugin_ne_kun"
 
     steps:
     - name: Checkout repository code
       uses: actions/checkout@v2
-      
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
+    - name: Show environment variables (safe ones)
+      run: |
+        echo "CHANNEL_ID=$CHANNEL_ID"
+        echo "Python version:"
+        python --version
+
+    - name: Debug: List files in workspace
+      run: |
+        pwd
+        ls -alh
+
+    - name: Debug: Show contents of pytgbot.py
+      run: |
+        echo "--- pytgbot.py contents ---"
+        cat pytgbot.py || echo "File not found."
+
     - name: Install dependencies
       run: |
+        set -x  # Enables command tracing
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  
 
-    - name: Run Python script
-      run: python pytgbot.py
+    - name: Run Python script with debug output
+      run: |
+        set -x
+        python pytgbot.py
