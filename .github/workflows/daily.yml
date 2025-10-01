@@ -29,7 +29,12 @@ jobs:
         echo "Python version:"
         python --version
 
-    - name: Debug: Show contents of pytgbot.py
+    - name: List files in workspace
+      run: |
+        pwd
+        ls -alh
+
+    - name: Show contents of pytgbot.py
       run: |
         echo "--- pytgbot.py contents ---"
         cat pytgbot.py || echo "File not found."
