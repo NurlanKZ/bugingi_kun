@@ -29,11 +29,6 @@ jobs:
         echo "Python version:"
         python --version
 
-    - name: Debug: List files in workspace
-      run: |
-        pwd
-        ls -alh
-
     - name: Debug: Show contents of pytgbot.py
       run: |
         echo "--- pytgbot.py contents ---"
