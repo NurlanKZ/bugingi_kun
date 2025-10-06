@@ -1,5 +1,6 @@
 import os
 import requests
+import asyncio
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from telegram.ext import ApplicationBuilder
@@ -39,14 +40,9 @@ async def run_app():
     await app.initialize()
     await app.start()
     
-    send_daily_message(app)  # Initial call to send message immediately
+    await send_daily_message(app)  # Await the async function
 
     await app.stop()
 
 if __name__ == '__main__':
-    run_app()
-
-
-
-    
-
+    asyncio.run(run_app())  # Use asyncio.run() to run the async function
