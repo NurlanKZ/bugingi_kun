@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      CHANNEL_ID: "@bugin_ne_kun"
+      CHANNEL_ID: "@kunderek"
 
     steps:
     - name: Checkout repository code
