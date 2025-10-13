@@ -30,6 +30,7 @@ async def send_daily_message(app):
         output += text + "\n\n"
 
     output = output.rpartition(";")[0]
+    print(len(output))
 
     await app.bot.send_message(chat_id=CHANNEL_ID, text=output)
 
