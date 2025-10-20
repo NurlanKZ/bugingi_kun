@@ -1,12 +1,10 @@
 import os
 import requests
 import asyncio
-from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from telegram.ext import ApplicationBuilder
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
-
 CHANNEL_ID = os.environ.get('CHANNEL_ID')
 
 # Create the Application and pass it your bot's token.
